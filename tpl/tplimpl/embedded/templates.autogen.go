@@ -319,8 +319,12 @@ if (!doNotTrack) {
             {{- $permalink_pretty := $.Page.Permalink | replaceRE "\\.html$" "/" -}}
             <img src="{{ (printf "%s%s" $permalink_pretty $image) }}"
         {{- end -}}
-            {{- with (or (.Get "alt") (.Get "caption")) -}}
-                {{- printf " alt=\"%s\"" . | safeHTMLAttr -}}
+            {{- if (or (.Get "alt") (.Get "caption")) -}}
+                {{- with .Get "alt"}}
+                    {{- printf " alt=\"%s\"" . | safeHTMLAttr -}}
+                {{- else -}}
+                    {{- printf " alt=\"%s\"" (.Get "caption" | markdownify | plainify) | safeHTMLAttr -}}
+                {{- end -}}
             {{- end -}}
             {{- with .Get "width" }} width="{{ . }}"{{ end -}}
             {{- with .Get "height" }} height="{{ . }}"{{ end -}}/> <!-- Closing img tag -->
@@ -330,10 +334,10 @@ if (!doNotTrack) {
                 {{ if isset .Params "title" }}
                     <h4>{{ .Get "title" }}</h4>
                 {{ end }}
-                {{ if or (.Get "caption") (.Get "attr") }}<p>
-                    {{ .Get "caption" }}
+                {{ if (or (.Get "caption") (.Get "attr")) }}<p>
+                    {{ .Get "caption" | markdownify }}
                     {{ with .Get "attrlink" }}<a href="{{ . }}"> {{ end }}
-                        {{ .Get "attr" }}
+                        {{ .Get "attr" | markdownify }}
                         {{ if .Get "attrlink" }}</a>{{ end }}</p>
                 {{ end }}
             </figcaption>

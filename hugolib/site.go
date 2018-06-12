@@ -1496,7 +1496,6 @@ func (s *Site) resetBuildState() {
 		p.subSections = Pages{}
 		p.parent = nil
 		p.scratch = newScratch()
-		p.mainPageOutput = nil
 	}
 }
 

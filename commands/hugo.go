@@ -124,7 +124,7 @@ func (c *commandeer) createLogger(cfg config.Provider) (*jww.Notepad, error) {
 		logThreshold    = jww.LevelWarn
 		logFile         = cfg.GetString("logFile")
 		outHandle       = os.Stdout
-		stdoutThreshold = jww.LevelError
+		stdoutThreshold = jww.LevelWarn
 	)
 
 	if c.h.verboseLog || c.h.logging || (c.h.logFile != "") {

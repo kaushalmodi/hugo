@@ -67,7 +67,7 @@ func New(mediaTypes media.Types, outputFormats output.Formats) Client {
 	htmlMin := &html.Minifier{
 		KeepDocumentTags:        true,
 		KeepConditionalComments: true,
-		KeepEndTags:             true,
+		// KeepEndTags:             true,
 		KeepDefaultAttrVals:     true,
 	}
 

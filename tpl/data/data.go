@@ -106,7 +106,7 @@ func (ns *Namespace) GetJSON(urlParts ...string) (interface{}, error) {
 	unmarshal := func(b []byte) (bool, error) {
 		err := json.Unmarshal(b, &v)
 		if err != nil {
-			return true, err
+			ns.deps.Log.WARN.Printf("Failed to get JSON resource %s: %s", url, err)
 		}
 		return false, nil
 	}
